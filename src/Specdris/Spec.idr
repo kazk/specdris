@@ -36,17 +36,14 @@ specWithState {storeOutput} tree
 ||| Executes a spec test and prints the result.
 spec' : SpecTree' ffi -> IO' ffi ()
 spec' tree
-  = do state <- specWithState tree
-       putStrLn' $ "\n" ++ stateToStr state
+  = do specWithState tree
+       pure ()
 
 ||| Executes a spec test, prints the result to the command line, and exits
 ||| with an error code if any tests have failed.
 spec : SpecTree -> IO ()
 spec tree
   = do state <- specWithState tree
-
-       putStrLn' $ "\n" ++ stateToStr state
-
        if (failed state) > 0 then
          exitFailure
        else
