@@ -47,10 +47,10 @@ colorToAnsi : Color -> String
 colorToAnsi code = "\ESC[3" ++ show (colorToCode code) ++ "m"
 
 colorise : Color -> String -> String
-colorise color str = colorToAnsi color ++ str ++ "\ESC[0m"
+colorise _ str = str
 
 indent : (level : Nat) -> String
-indent level = foldr (\el, acc => el ++ acc) "" (replicate level "  ")
+indent level = foldr (\el, acc => el ++ acc) "" (replicate level "")
 
 format : String -> Color -> (level : Nat) -> String
 format str color level = colorise color $ indent level ++ str

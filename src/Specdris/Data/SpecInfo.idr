@@ -16,5 +16,5 @@ data SpecInfo : Type where
    information to console.
  -}
 evalInfo : SpecInfo -> (level : Nat) -> String
-evalInfo (Describe msg) level = format msg White level
-evalInfo (It msg)       level = format ("+ " ++ msg) White level
+evalInfo (Describe msg) level = format ("\n<DESCRIBE::>" ++ msg) White level
+evalInfo (It msg)       level = format ("\n<IT::>" ++ msg) White level

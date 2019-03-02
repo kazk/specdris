@@ -77,7 +77,12 @@ evaluateTree (Node left right) state around store level
   = case left of
         -- node containing a description/it -> new level of output indentation
         (Leaf _) => do newState <- evaluateTree left state around store (level + 1)
-                       evaluateTree right newState around store (level + 1)
+                       tmpState <- evaluateTree right newState around store (level + 1)
+                       if store then
+                         pure $ addLine "\n<COMPLETEDIN::>" tmpState
+                       else do
+                         putStrLn' "\n<COMPLETEDIN::>"
+                         pure tmpState
                        
         _        => do newState <- evaluateTree left state around store level
                        evaluateTree right newState around store level
